@@ -70,7 +70,9 @@ export const SITES: Site[] = [
     href: "https://oneshorelineearlywarning.onerain.com/site/?site_id=12",
     sourceLabel: "OneShoreline",
     kind: "onerain",
-    path: "/api/colma",
+    path: onerainProxy(
+      "https://oneshorelineearlywarning.onerain.com/export/flot/?method=sensor&site_id=12&device_id=5&site=32e8ebb1-4c9c-460a-a4cd-58903b96f347&device=dbbbcf6d-6a38-44a5-a90b-7077db13c5c2",
+    ),
   },
   {
     id: "pilarcitos",
@@ -89,7 +91,9 @@ export const SITES: Site[] = [
     href: "https://oneshorelineearlywarning.onerain.com/site/?site_id=28&site=b7ae4c33-4536-443f-bcc5-72ded98d2412",
     sourceLabel: "OneShoreline",
     kind: "onerain",
-    path: "/api/stage-road",
+    path: onerainProxy(
+      "https://oneshorelineearlywarning.onerain.com/export/flot/?method=sensor&site_id=28&device_id=1&site=b7ae4c33-4536-443f-bcc5-72ded98d2412&device=cbd2cde7-ac86-4ad2-8a9d-a2f6d7575cd8",
+    ),
   },
   {
     id: "crystal",
@@ -114,6 +118,10 @@ export const SITES: Site[] = [
     kind: "tide",
   },
 ]
+
+function onerainProxy(upstream: string): string {
+  return `/api/onerain?url=${encodeURIComponent(upstream)}`
+}
 
 const USGS_IDS = SITES.filter((site) => site.kind === "usgs").map((site) => site.usgsId)
 const NWIS_BASE = "https://nwis.waterservices.usgs.gov/nwis/iv/"
